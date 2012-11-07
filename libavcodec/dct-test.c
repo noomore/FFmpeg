@@ -67,6 +67,8 @@ void ff_simple_idct_neon(DCTELEM *data);
 
 void ff_simple_idct_axp(DCTELEM *data);
 
+void ff_mmi_idct(DCTELEM *data);
+
 struct algo {
     const char *name;
     void (*func)(DCTELEM *block);
@@ -158,6 +160,10 @@ static const struct algo idct_tab[] = {
 
 #if ARCH_ALPHA
     { "SIMPLE-ALPHA",   ff_simple_idct_axp,    NO_PERM },
+#endif
+
+#if HAVE_MMI
+    { "AP922-MMI",      ff_mmi_idct,           MMX_PERM,  0,  1 },
 #endif
 
     { 0 }
