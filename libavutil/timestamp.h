@@ -25,6 +25,7 @@
 #define AVUTIL_TIMESTAMP_H
 
 #include "common.h"
+#include <alloca.h>
 
 #define AV_TS_MAX_STRING_SIZE 32
 
@@ -47,7 +48,7 @@ static inline char *av_ts_make_string(char *buf, int64_t ts)
  * Convenience macro, the return value should be used only directly in
  * function arguments but never stand-alone.
  */
-#define av_ts2str(ts) av_ts_make_string((char[AV_TS_MAX_STRING_SIZE]){0}, ts)
+#define av_ts2str(ts) av_ts_make_string((char*)alloca(AV_TS_MAX_STRING_SIZE), ts)
 
 /**
  * Fill the provided buffer with a string containing a timestamp time
@@ -69,6 +70,6 @@ static inline char *av_ts_make_time_string(char *buf, int64_t ts, AVRational *tb
  * Convenience macro, the return value should be used only directly in
  * function arguments but never stand-alone.
  */
-#define av_ts2timestr(ts, tb) av_ts_make_time_string((char[AV_TS_MAX_STRING_SIZE]){0}, ts, tb)
+#define av_ts2timestr(ts, tb) av_ts_make_time_string((char*)alloca(AV_TS_MAX_STRING_SIZE), ts, tb)
 
 #endif /* AVUTIL_TIMESTAMP_H */
